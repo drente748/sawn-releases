@@ -1,0 +1,9 @@
+<resources>
+    <!-- MainActivity uses AppCompatActivity for per-app locale support. -->
+    <style name="Theme.Sawn" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">#FFF7ED</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

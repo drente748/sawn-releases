@@ -1,0 +1,8 @@
+{
+    "versionCode":  1,
+    "versionName":  "0.0.1",
+    "apkUrl":  "https://example.com/placeholder.apk",
+    "sha256":  "0000000000000000000000000000000000000000000000000000000000000000",
+    "changelog":  "placeholder",
+    "mandatory":  false
+}

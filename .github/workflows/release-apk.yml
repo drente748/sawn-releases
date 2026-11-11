@@ -1,0 +1,237 @@
+name: Build and publish Android update
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          # The action's default package list asks for the retired "tools" package,
+          # which is no longer in the SDK repository - sdkmanager then exits 1 and
+          # the whole run dies before a single line is built. Name exactly what the
+          # build needs instead.
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+
+      - name: Resolve public manifest URL
+        id: url
+        shell: bash
+        run: |
+          owner="${GITHUB_REPOSITORY%%/*}"
+          repo="${GITHUB_REPOSITORY##*/}"
+          # lowercase: the Pages hostname is case-insensitive, but some CDNs match the
+          # Host header exactly — one canonical spelling avoids a 404 on the manifest.
+          url="https://${owner,,}.github.io/${repo,,}/updates/manifest.json"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Public manifest URL: $url"
+
+      - name: Restore signing key
+        env:
+          SAWN_KEYSTORE_BASE64: ${{ secrets.SAWN_KEYSTORE_BASE64 }}
+          SAWN_STORE_PASSWORD: ${{ secrets.SAWN_STORE_PASSWORD }}
+          SAWN_KEY_ALIAS: ${{ secrets.SAWN_KEY_ALIAS }}
+          SAWN_KEY_PASSWORD: ${{ secrets.SAWN_KEY_PASSWORD }}
+        run: |
+          if [ -n "$SAWN_KEYSTORE_BASE64" ]; then
+            # Strip any stray CR/LF: GNU base64 rejects a carriage return with
+            # "invalid input", and a secret published from a Windows shell can
+            # easily carry one.
+            echo "$SAWN_KEYSTORE_BASE64" | tr -d '\r\n' | base64 --decode > "$RUNNER_TEMP/sawn-release.keystore"
+            if [ ! -s "$RUNNER_TEMP/sawn-release.keystore" ]; then
+              echo "The keystore secret decoded to an empty file." >&2
+              exit 1
+            fi
+            {
+              echo "SAWN_STORE_FILE=$RUNNER_TEMP/sawn-release.keystore"
+              echo "SAWN_STORE_PASSWORD=$SAWN_STORE_PASSWORD"
+              echo "SAWN_KEY_ALIAS=$SAWN_KEY_ALIAS"
+              echo "SAWN_KEY_PASSWORD=$SAWN_KEY_PASSWORD"
+            } >> local.properties
+            unset SAWN_KEYSTORE_BASE64 SAWN_STORE_PASSWORD SAWN_KEY_ALIAS SAWN_KEY_PASSWORD
+          else
+            echo "Signing secrets are required for a secure update that keeps the existing app identity." >&2
+            exit 1
+          fi
+
+      - name: Build release APK
+        env:
+          SAWN_UPDATE_MANIFEST_URL: ${{ steps.url.outputs.url }}
+        run: |
+          # gradle.properties caps the daemon heap at 1 GB because the developer's
+          # machine has 4 GB of RAM. The runner has far more, and R8 needs more than
+          # 1 GB to shrink a 37 MB APK - it died with "OutOfMemoryError: Java heap
+          # space". Raise the heap for this build only; the local cap stays.
+          ./gradlew --no-daemon --max-workers=2 \
+            -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8" \
+            -Pkotlin.daemon.jvmargs=-Xmx2g \
+            :app:assembleRelease
+
+      - name: Verify signing certificate
+        run: |
+          actual=$($ANDROID_HOME/build-tools/36.0.0/apksigner verify --print-certs app/build/outputs/apk/release/app-release.apk | awk -F': ' '/Signer #1 certificate SHA-256 digest/ { print tolower($2) }')
+          if [ -z "$actual" ] || [ "$actual" != "${SAWN_EXPECTED_CERT_SHA256,,}" ]; then
+            echo "Release APK signing certificate does not match the expected update key." >&2
+            echo "expected: ${SAWN_EXPECTED_CERT_SHA256,,}" >&2
+            echo "actual:   $actual" >&2
+            exit 1
+          fi
+          echo "Signing certificate verified: $actual"
+        env:
+          SAWN_EXPECTED_CERT_SHA256: ${{ secrets.SAWN_SIGNING_CERT_SHA256 }}
+
+      - name: Prepare public update manifest
+        id: manifest
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib, re, subprocess, sys
+
+          apk = pathlib.Path("app/build/outputs/apk/release/app-release.apk")
+          aapt = pathlib.Path(os.environ["ANDROID_HOME"]) / "build-tools" / "36.0.0" / "aapt"
+          data = subprocess.check_output([str(aapt), "dump", "badging", str(apk)], text=True)
+          version_code = int(re.search(r"versionCode='(\d+)'", data).group(1))
+          version_name = re.search(r"versionName='([^']+)'", data).group(1)
+          tag = os.environ.get("GITHUB_REF_NAME") or f"build-{os.environ['GITHUB_RUN_NUMBER']}"
+
+          # The tag is the address of the release asset. If it disagrees with the APK's
+          # own version, the published manifest would advertise a version nobody can
+          # download under the right name — refuse instead of publishing a broken link.
+          if not tag.startswith("v"):
+              print(
+                  "This workflow must run from a version tag like 'v2.2.0'; "
+                  f"the ref was '{tag}'. A branch run would publish an asset URL "
+                  "that nobody can download from.",
+                  file=sys.stderr,
+              )
+              sys.exit(1)
+          if tag != f"v{version_name}":
+              print(f"Tag {tag} does not match APK version {version_name}.", file=sys.stderr)
+              sys.exit(1)
+
+          # The release notes come from scripts/extract_changelog.py — the same script
+          # that is run locally before a release, so the dialog and the changelog
+          # file can never drift apart.
+          notes = subprocess.check_output(
+              [sys.executable, "scripts/extract_changelog.py", "--version", version_name],
+              text=True,
+          ).strip() or f"Sawn {version_name}: fixes and improvements."
+          digest = hashlib.sha256(apk.read_bytes()).hexdigest()
+          manifest = {
+              "versionCode": version_code,
+              "versionName": version_name,
+              "apkUrl": f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/releases/download/{tag}/app-release.apk",
+              "sha256": digest,
+              "changelog": notes,
+              "mandatory": False,
+          }
+          pathlib.Path("manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(f"tag={tag}", file=open(os.environ["GITHUB_OUTPUT"], "a"))
+          print(f"versionCode={version_code} versionName={version_name}", file=sys.stderr)
+          PY
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.manifest.outputs.tag }}
+          name: Sawn ${{ steps.manifest.outputs.tag }}
+          generate_release_notes: true
+          files: |
+            app/build/outputs/apk/release/app-release.apk
+            manifest.json
+
+      - name: Prepare GitHub Pages branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_API_URL: ${{ github.api_url }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error
+          api = os.environ["GH_API_URL"]
+          repo = os.environ["GH_REPOSITORY"]
+          headers = {"Authorization": f"Bearer {os.environ['GH_TOKEN']}", "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"}
+          def get(url):
+              request = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(request) as response:
+                  return json.load(response)
+          try:
+              get(f"{api}/repos/{repo}/git/ref/heads/gh-pages")
+              print("gh-pages branch is ready")
+          except urllib.error.HTTPError as error:
+              if error.code != 404:
+                  raise
+              default_branch = get(f"{api}/repos/{repo}")["default_branch"]
+              head = get(f"{api}/repos/{repo}/git/ref/heads/{default_branch}")["object"]["sha"]
+              payload = json.dumps({"ref": "refs/heads/gh-pages", "sha": head}).encode()
+              request = urllib.request.Request(f"{api}/repos/{repo}/git/refs", data=payload, headers=headers, method="POST")
+              with urllib.request.urlopen(request) as response:
+                  print(f"Created gh-pages branch: {response.status}")
+          PY
+
+      - name: Update GitHub Pages manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_API_URL: ${{ github.api_url }}
+        run: |
+          python3 - <<'PY'
+          import base64, json, os, urllib.request, urllib.error
+          repository = os.environ["GH_REPOSITORY"]
+          url = f"{os.environ['GH_API_URL']}/repos/{repository}/contents/updates/manifest.json"
+          headers = {"Authorization": f"Bearer {os.environ['GH_TOKEN']}", "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"}
+          data = open("manifest.json", "rb").read()
+          # Look the file up on gh-pages, not on the default branch: the manifest
+          # lives only on the Pages branch, and without the sha of the file being
+          # replaced GitHub answers 422.
+          request = urllib.request.Request(url + "?ref=gh-pages", headers=headers)
+          try:
+              with urllib.request.urlopen(request) as response:
+                  sha = json.load(response)["sha"]
+          except urllib.error.HTTPError as error:
+              if error.code != 404:
+                  raise
+              sha = None
+          payload = {"message": "Publish Sawn update manifest", "content": base64.b64encode(data).decode(), "branch": "gh-pages"}
+          if sha:
+              payload["sha"] = sha
+          request = urllib.request.Request(url, data=json.dumps(payload).encode(), headers=headers, method="PUT")
+          with urllib.request.urlopen(request) as response:
+              print(f"GitHub Pages manifest published: {response.status}")
+          PY
+
+      - name: Verify the published manifest is reachable
+        env:
+          MANIFEST_URL: ${{ steps.url.outputs.url }}
+        run: |
+          # Pages can take a minute to publish the first time. Poll rather than fail the
+          # run on a cold start — a false alarm here would hide a real outage.
+          for attempt in $(seq 1 12); do
+            code=$(curl -s -o /tmp/sawn-manifest.json -w '%{http_code}' "$MANIFEST_URL" || true)
+            if [ "$code" = "200" ]; then
+              echo "Manifest is live: $MANIFEST_URL"
+              cat /tmp/sawn-manifest.json
+              exit 0
+            fi
+            echo "attempt $attempt: HTTP $code — retrying in 15s"
+            sleep 15
+          done
+          echo "Manifest did not become reachable at $MANIFEST_URL" >&2
+          exit 1

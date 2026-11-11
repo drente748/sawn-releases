@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Required to create the upstream DNS socket that forwards non-blocked queries. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Re-reads the underlying network's DNS servers when Wi-Fi/mobile data changes. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Usage stats + accessibility are special-access permissions granted via Settings, not requestable at runtime. -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <!-- Required (API 31+) for Window.setHideOverlayWindows, which stops another app's overlay
+         from sitting on top of a block screen. Without the declaration the call is a silent no-op. -->
+    <uses-permission android:name="android.permission.HIDE_OVERLAY_WINDOWS" />
+    <!-- Lets Setup ask the system directly for a battery-optimisation exemption
+         (one dialog) instead of sending the user hunting through a long app list. -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- Required (API 26+) to install an APK delivered by the in-app updater.
+         Granted only after the user accepts the system dialog; the app never
+         installs silently. Used exclusively for self-updates from the manifest. -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- tensorflow-lite-task-vision declares these transitively. The classifier reads a model
+         bundled in assets/ and never touches shared storage or telephony, so least privilege
+         means dropping them — Play review would otherwise flag a wellbeing app holding them.
+         ScopedStorage is ignored because these are removals, not requests. -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:node="remove" tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:node="remove" tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
+
+    <!-- Least privilege: see only launchable apps (for the picker) and the launcher (to keep
+         it un-blockable) instead of requesting QUERY_ALL_PACKAGES. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.HOME" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".SawnApp"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:enableOnBackInvokedCallback="true"
+        android:theme="@style/Theme.Sawn"
+        android:usesCleartextTraffic="false"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:targetApi="34">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Sawn">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Full-screen intercept shown when a blocked app is opened: hard block,
+             limit-reached notice, or the mindful pause. -->
+        <activity
+            android:name=".ui.intercept.InterceptActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Sawn" />
+
+        <!-- Local VPN that filters DNS to block domains across all apps/browsers.
+             stopWithTask=false: swiping the app out of recents never kills the filter. -->
+        <service
+            android:name=".vpn.SawnVpnService"
+            android:exported="false"
+            android:stopWithTask="false"
+            android:foregroundServiceType="specialUse"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Filters DNS locally to block user-selected websites for digital wellbeing." />
+        </service>
+
+        <!-- Detects foreground app to block apps and (as a fallback) read browser URLs. -->
+        <service
+            android:name=".accessibility.AppBlockAccessibilityService"
+            android:exported="false"
+            android:label="@string/accessibility_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <receiver
+            android:name=".system.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <!-- Some OEMs (Xiaomi/HTC/OnePlus) send this instead of BOOT_COMPLETED. -->
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Cancels notifications from blocked apps (opt-in; needs notification access). -->
+        <service
+            android:name=".system.SawnNotificationListener"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <!-- Quick Settings tile: one-tap blocking toggle from the shade. -->
+        <service
+            android:name=".system.SawnTile"
+            android:exported="true"
+            android:icon="@drawable/ic_shield_tile"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- FileProvider: shares the downloaded update APK with the system installer.
+             Required for in-app updates (Android 7+). Scoped to the app's cache dir. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- Widget 2x2: streak + status + tap to open. Updated on protection toggle. -->
+        <receiver
+            android:name=".widget.SawnWidgetProvider"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/sawn_widget_info" />
+        </receiver>
+
+        <!-- Opens the system installer on an already-verified update APK. It cannot install
+             silently — Android always shows the install screen and asks the user to confirm. -->
+        <receiver
+            android:name=".system.UpdateInstallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.sawn.app.INSTALL_PENDING_UPDATE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Device admin: uninstall protection only (no enforcement policies declared). -->
+        <receiver
+            android:name=".system.SawnDeviceAdminReceiver"
+            android:description="@string/device_admin_description"
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

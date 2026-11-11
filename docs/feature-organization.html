@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>صَوْن — تنظيم الميزات: تسعة مواكب تصميمية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dawn-bg:#FFF7ED; --card:#FFFFFF; --ink:#431407; --ink-soft:#9A3412; --muted:#A8A29E;
+  --primary:#EA580C; --on-primary:#FFFFFF; --primary-soft:#FDE8D8; --primary-deep:#C2410C;
+  --success:#16A34A; --success-soft:#E7F6EC; --on-success-soft:#14532D;
+  --gold:#FDBA74; --gold-deep:#D97706; --gold-container:#FEF3C7; --on-gold:#78350F;
+  --error:#C62828; --error-soft:#FDE8E8; --on-error-soft:#7F1D1D;
+  --line:#F5D6BB; --line-soft:#FDE0C8; --track:#F3E9DC;
+  --r-xs:10px; --r-sm:14px; --r-md:18px; --r-lg:22px; --r-xl:26px;
+  --sh-card:0 8px 22px rgba(234,88,12,.10);
+  --sh-phone:0 30px 70px rgba(67,20,7,.22), 0 2px 0 rgba(255,255,255,.4) inset;
+  --page:#FAF6F1;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font-family:'Cairo', system-ui, 'Segoe UI', Tahoma, sans-serif;
+  font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+
+/* ============ PAGE CHROME ============ */
+.wrap{max-width:1440px;margin:0 auto;padding:0 32px 120px}
+.topbar{
+  position:sticky; top:0; z-index:60;
+  background:rgba(250,246,241,.82); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.topbar-in{max-width:1440px;margin:0 auto;padding:12px 32px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}
+.brand .mark{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(145deg,var(--primary),var(--primary-deep));color:#fff;font-size:17px;
+  box-shadow:0 6px 14px rgba(234,88,12,.28)}
+.topmeta{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap}
+.pill-meta{font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:99px;
+  background:var(--primary-soft);color:var(--primary-deep);border:1px solid var(--line)}
+
+.pagehead{padding:64px 0 40px;max-width:820px}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--primary);
+  text-transform:uppercase;margin-bottom:14px}
+h1{font-size:clamp(32px,5vw,54px);line-height:1.24;margin:0 0 18px;font-weight:800;letter-spacing:-.01em}
+.pagehead p{font-size:17px;color:var(--ink-soft);margin:0 0 26px;max-width:640px}
+.headstats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:12px 16px;min-width:118px;box-shadow:var(--sh-card)}
+.stat b{display:block;font-size:24px;font-weight:800;color:var(--primary-deep);line-height:1.2}
+.stat span{font-size:11.5px;color:var(--muted);font-weight:600}
+
+/* ============ LAYOUT ============ */
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:56px;align-items:start}
+.sidenav{position:sticky;top:84px;display:flex;flex-direction:column;gap:2px}
+.sidenav .navtitle{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--muted);
+  padding:0 12px 10px;text-transform:uppercase}
+.sidenav a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:12px;
+  font-size:13.5px;font-weight:600;color:var(--ink-soft);transition:.18s;border:1px solid transparent}
+.sidenav a:hover{background:#fff;border-color:var(--line-soft)}
+.sidenav a.on{background:var(--ink);color:#FDE8D8;border-color:var(--ink)}
+.sidenav a i{font-style:normal;width:22px;height:22px;border-radius:7px;background:var(--primary-soft);
+  color:var(--primary-deep);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
+.sidenav a.on i{background:rgba(253,232,216,.16);color:var(--gold)}
+
+/* ============ SECTION / IDEA ============ */
+.idea{margin-bottom:104px;scroll-margin-top:96px}
+.idea-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:26px}
+.idea-num{width:46px;height:46px;border-radius:15px;background:var(--ink);color:var(--gold);
+  display:grid;place-items:center;font-weight:800;font-size:17px;flex:none;
+  box-shadow:0 8px 18px rgba(67,20,7,.2)}
+.idea-title{font-size:27px;font-weight:800;margin:0 0 4px;line-height:1.3}
+.idea-sub{color:var(--ink-soft);font-size:14.5px;margin:0}
+.idea-body{display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:38px;align-items:start}
+.stage{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+.stage.tight{gap:20px}
+.sidecard{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:20px;box-shadow:var(--sh-card)}
+.sidecard h4{margin:0 0 12px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px}
+.sidecard h4::before{content:'';width:4px;height:16px;border-radius:2px;background:var(--primary)}
+.sidecard p{margin:0 0 14px;font-size:13px;color:var(--ink-soft);line-height:1.75}
+.sidecard ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.sidecard li{font-size:12.5px;color:var(--ink-soft);display:flex;gap:9px;align-items:flex-start;line-height:1.6}
+.sidecard li::before{content:'';width:6px;height:6px;border-radius:99px;background:var(--primary);
+  margin-top:8px;flex:none}
+.badges{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.badge{font-size:11px;font-weight:800;padding:6px 11px;border-radius:99px;border:1px solid var(--line);
+  background:var(--dawn-bg);color:var(--ink-soft)}
+.badge.impact{background:var(--success-soft);color:var(--on-success-soft);border-color:#BBE9CB}
+.badge.effort{background:var(--gold-container);color:var(--on-gold);border-color:var(--line)}
+
+.caption{text-align:center;font-size:12px;font-weight:800;color:var(--muted);margin-top:0;
+  letter-spacing:.06em}
+.caption b{display:block;font-size:13.5px;color:var(--ink);margin-bottom:2px}
+
+/* ============ PHONE ============ */
+.phone{width:302px;flex:none;background:#1C1917;border-radius:40px;padding:9px;
+  box-shadow:var(--sh-phone);position:relative}
+.phone::after{content:'';position:absolute;inset:0;border-radius:40px;pointer-events:none;
+  border:1px solid rgba(255,255,255,.12)}
+.screen{height:632px;border-radius:32px;overflow-y:auto;overflow-x:hidden;position:relative;
+  background:linear-gradient(180deg,var(--dawn-bg) 0%,#FFF1E4 42%,#FFFDF8 100%);scrollbar-width:thin}
+.screen::-webkit-scrollbar{width:0}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:9px 18px 3px;
+  font-size:10.5px;font-weight:800;color:var(--ink);direction:ltr}
+.statusbar .dots{display:flex;gap:3px;align-items:center}
+.notch{width:74px;height:20px;border-radius:99px;background:#1C1917;margin:0 auto 6px;position:relative;
+  top:0;z-index:5}
+.pbody{padding:0 14px 26px;display:flex;flex-direction:column;gap:12px}
+
+/* app-level components (mirror of Design.kt) */
+.d-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--sh-card);padding:14px}
+.d-card.dark{background:var(--ink);border-color:var(--ink);color:var(--cream,#FDE8D8)}
+.sec-head{display:flex;flex-direction:column;gap:1px;padding-inline-start:2px}
+.sec-head .t{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--ink)}
+.sec-head .t::before{content:'';width:4px;height:15px;border-radius:2px;background:var(--primary)}
+.sec-head .h{font-size:10.5px;color:var(--ink-soft);padding-inline-start:12px;line-height:1.5}
+.apptop{display:flex;align-items:center;gap:9px}
+.apptop .logo{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
+  background:var(--primary-soft);border:1px solid var(--line);color:var(--primary);font-size:16px}
+.apptop .nm{flex:1;min-width:0}
+.apptop .nm b{display:block;font-size:14px;font-weight:800;line-height:1.3}
+.apptop .nm span{font-size:10px;color:var(--ink-soft);display:block;line-height:1.4}
+.apptop .gear{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;
+  color:var(--ink-soft);font-size:14px}
+
+.hero{display:flex;gap:13px;align-items:center}
+.hero .txt{flex:1;min-width:0}
+.hero .txt b{display:block;font-size:16px;font-weight:800;line-height:1.35}
+.hero .txt span{font-size:10.5px;color:var(--ink-soft);display:block;line-height:1.5}
+.ring{width:74px;height:74px;border-radius:50%;flex:none;position:relative;display:grid;place-items:center;
+  background:conic-gradient(var(--primary) 0 72%,var(--track) 72% 100%)}
+.ring.r-locked{background:conic-gradient(var(--ink) 0 72%,var(--track) 72% 100%)}
+.ring.r-down{background:conic-gradient(var(--error) 0 30%,var(--track) 30% 100%)}
+.ring .inner{position:absolute;inset:8px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#FDE8D8,var(--primary-soft) 60%,var(--dawn-bg));
+  display:grid;place-items:center}
+.ring svg{width:26px;height:26px}
+.ring .pct{position:absolute;bottom:-17px;inset-inline-start:0;inset-inline-end:0;text-align:center;
+  font-size:9px;font-weight:800;color:var(--ink-soft)}
+
+.streak{background:var(--ink);border-radius:var(--r-lg);padding:13px 14px;display:flex;
+  flex-direction:column;gap:9px;color:var(--cream,#FDE8D8)}
+.streak .top{display:flex;align-items:center;gap:9px}
+.streak .top .ic{width:30px;height:30px;border-radius:10px;background:var(--gold-container);
+  display:grid;place-items:center;font-size:15px;flex:none}
+.streak .top b{font-size:12px;font-weight:800;display:block;line-height:1.4}
+.streak .top span{font-size:9.5px;color:#86EFAC;display:block}
+.streak .num{display:flex;align-items:flex-end;gap:6px}
+.streak .num b{font-size:30px;font-weight:800;color:var(--gold);line-height:1}
+.streak .num span{font-size:11px;padding-bottom:4px}
+.streak .week{display:flex;gap:5px;min-width:0}
+.streak .week i{flex:1;height:6px;border-radius:4px;background:rgba(253,232,216,.16);display:block}
+.streak .week i.on{background:var(--gold)}
+.streak .week u{flex:1;text-align:center;font-size:8.5px;color:rgba(253,232,216,.6);text-decoration:none}
+.streak .metrics{display:flex;gap:8px;padding-top:8px;border-top:1px solid rgba(253,232,216,.16)}
+.streak .metrics div{flex:1}
+.streak .metrics b{display:block;font-size:13px;font-weight:800}
+.streak .metrics span{font-size:9px;color:rgba(253,232,216,.72)}
+
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.ptog{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:10px;
+  display:flex;flex-direction:column;gap:5px;min-width:0;overflow:hidden}
+.ptog .ic{color:var(--primary);font-size:16px;line-height:1}
+.ptog b{font-size:11.5px;font-weight:800;line-height:1.3}
+.ptog span{font-size:9px;color:var(--ink-soft);line-height:1.4}
+.sw{width:34px;height:19px;border-radius:99px;background:var(--track);position:relative;flex:none}
+.sw.on{background:var(--primary)}
+.sw::after{content:'';position:absolute;top:2px;inset-inline-end:2px;width:15px;height:15px;border-radius:99px;
+  background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw.on::after{inset-inline-start:2px;inset-inline-end:auto}
+.sw.on{background:var(--primary)}
+
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:11px;
+  display:flex;align-items:center;gap:9px;min-width:0;overflow:hidden}
+.tile .ic{width:32px;height:32px;border-radius:50%;background:var(--primary-soft);color:var(--primary);
+  display:grid;place-items:center;font-size:14px;flex:none}
+.tile .tx{flex:1;min-width:0}
+.tile .tx b{display:block;font-size:11.5px;font-weight:800;line-height:1.35}
+.tile .tx span{font-size:9px;color:var(--ink-soft);display:block;line-height:1.4;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .ar{color:var(--ink-soft);font-size:12px;flex:none}
+
+.cta{background:var(--primary);color:#fff;border-radius:99px;padding:11px;text-align:center;
+  font-weight:800;font-size:12px;box-shadow:0 8px 18px rgba(234,88,12,.3)}
+.row{display:flex;align-items:center;gap:10px;padding:10px 0}
+.row + .row{border-top:1px solid var(--line-soft)}
+.row .ic{width:30px;height:30px;border-radius:11px;background:var(--primary-soft);color:var(--primary);
+  display:grid;place-items:center;font-size:13px;flex:none}
+.row .tx{flex:1;min-width:0}
+.row .tx b{display:block;font-size:12px;font-weight:700;line-height:1.4}
+.row .tx span{font-size:9.5px;color:var(--ink-soft);display:block;line-height:1.45}
+
+/* state chips */
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;padding:3px 8px;
+  border-radius:99px;border:1px solid transparent;white-space:nowrap;flex:none}
+.chip.on{background:var(--success-soft);color:var(--on-success-soft);border-color:#BBE9CB}
+.chip.off{background:#F5F5F4;color:#78716C;border-color:#E7E5E4}
+.chip.perm{background:var(--gold-container);color:var(--on-gold);border-color:#FDE68A}
+.chip.lock{background:var(--error-soft);color:var(--on-error-soft);border-color:#F5C2C2}
+.chip.new{background:var(--primary);color:#fff}
+.chip i{width:6px;height:6px;border-radius:99px;background:currentColor;display:block}
+
+.alert{display:flex;align-items:center;gap:9px;border-radius:var(--r-md);padding:10px 12px;
+  font-size:11.5px;font-weight:700;border:1px solid;line-height:1.4}
+.alert.urgent{background:var(--error-soft);border-color:#F5C2C2;color:var(--on-error-soft)}
+.alert.info{background:var(--primary-soft);border-color:var(--line);color:var(--primary-deep)}
+.alert .ar{margin-inline-start:auto;font-size:12px;opacity:.7}
+
+/* space cards */
+.spaces{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 30px}
+.space{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;
+  box-shadow:var(--sh-card);position:relative;overflow:hidden}
+.space::before{content:'';position:absolute;top:0;inset-inline-start:0;width:100%;height:4px;background:var(--primary)}
+.space.s2::before{background:var(--gold-deep)}
+.space.s3::before{background:var(--success)}
+.space.s4::before{background:var(--ink)}
+.space .ic{width:40px;height:40px;border-radius:14px;background:var(--primary-soft);color:var(--primary);
+  display:grid;place-items:center;font-size:19px;margin-bottom:12px}
+.space.s2 .ic{background:var(--gold-container);color:var(--gold-deep)}
+.space.s3 .ic{background:var(--success-soft);color:var(--success)}
+.space.s4 .ic{background:#EDE7E1;color:var(--ink)}
+.space b{display:block;font-size:16px;font-weight:800;margin-bottom:2px}
+.space .q{font-size:11.5px;color:var(--primary);font-weight:700;margin-bottom:10px}
+.space.s2 .q{color:var(--gold-deep)}.space.s3 .q{color:var(--success)}.space.s4 .q{color:var(--ink-soft)}
+.space ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:5px}
+.space li{font-size:10.5px;font-weight:600;background:var(--dawn-bg);border:1px solid var(--line-soft);
+  border-radius:99px;padding:3px 8px;color:var(--ink-soft)}
+
+/* grouping tree */
+.tree{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:6px 12px;
+  box-shadow:var(--sh-card)}
+.tree .app{display:flex;align-items:center;gap:10px;padding:9px 0}
+.tree .app + .app{border-top:1px solid var(--line-soft)}
+.tree .mono{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:12px;
+  font-weight:800;color:#fff;flex:none}
+.tree .nm{flex:1;min-width:0}
+.tree .nm b{display:block;font-size:12.5px;font-weight:800}
+.tree .nm span{font-size:9.5px;color:var(--ink-soft)}
+.tree .kids{display:flex;flex-direction:column;gap:6px;padding:0 0 10px 44px}
+.tree .kid{display:flex;align-items:center;gap:8px;background:var(--dawn-bg);border:1px solid var(--line-soft);
+  border-radius:var(--r-xs);padding:7px 10px}
+.tree .kid b{font-size:11px;font-weight:700;flex:1}
+.tree .count{font-size:10px;font-weight:800;color:var(--primary-deep);background:var(--primary-soft);
+  border-radius:99px;padding:2px 8px;flex:none}
+
+/* matrix */
+.matrix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.mx{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;
+  box-shadow:var(--sh-card)}
+.mx h5{margin:0 0 4px;font-size:15px;font-weight:800}
+.mx p{margin:0 0 12px;font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+.mx .dest{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;padding:7px 12px;
+  border-radius:99px;background:var(--ink);color:var(--cream,#FDE8D8)}
+.mx ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.mx li{font-size:11.5px;color:var(--ink-soft);display:flex;gap:8px;align-items:flex-start}
+.mx li::before{content:'▪';color:var(--primary);flex:none}
+
+/* compare table */
+.cmp{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-card)}
+.cmp th{font-size:11px;font-weight:800;color:var(--muted);text-align:start;padding:11px 14px;
+  border-bottom:1px solid var(--line);background:var(--dawn-bg);letter-spacing:.05em}
+.cmp td{padding:11px 14px;font-size:12.5px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.cmp tr:last-child td{border-bottom:none}
+.old{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--error);
+  font-weight:600}
+.new{font-weight:800;color:var(--ink)}
+.why{font-size:11.5px;color:var(--ink-soft);display:block;margin-top:2px;line-height:1.55}
+
+/* bars chart */
+.bars{display:flex;flex-direction:column;gap:9px}
+.bars .b{display:flex;align-items:center;gap:9px}
+.bars .lbl{width:88px;font-size:10px;color:var(--ink-soft);font-weight:700;flex:none;text-align:start}
+.bars .track2{flex:1;height:16px;border-radius:8px;background:var(--track);overflow:hidden}
+.bars .fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--primary),var(--gold))}
+.bars .val{font-size:10px;font-weight:800;color:var(--ink);width:26px;text-align:end;flex:none}
+
+.search{display:flex;align-items:center;gap:8px;background:var(--dawn-bg);border:1px solid var(--line);
+  border-radius:99px;padding:8px 13px;font-size:11.5px;color:var(--muted)}
+.search .mag{color:var(--primary)}
+.fchips{display:flex;gap:6px;flex-wrap:wrap}
+.fchips span{font-size:9.5px;font-weight:800;padding:4px 10px;border-radius:99px;background:var(--dawn-bg);
+  border:1px solid var(--line);color:var(--ink-soft)}
+.fchips span.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+.callout{background:var(--ink);color:var(--cream,#FDE8D8);border-radius:var(--r-lg);padding:18px 20px;
+  font-size:13px;line-height:1.8;position:relative;overflow:hidden}
+.callout::after{content:'';position:absolute;top:-40px;inset-inline-end:-30px;width:150px;height:150px;
+  border-radius:50%;background:radial-gradient(circle,rgba(253,186,116,.28),transparent 70%)}
+.callout b{color:var(--gold)}
+
+.rule{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r-lg);padding:16px 20px;box-shadow:var(--sh-card);margin-bottom:26px}
+.rule .n{width:32px;height:32px;border-radius:10px;background:var(--primary);color:#fff;display:grid;
+  place-items:center;font-weight:800;font-size:13px;flex:none}
+.rule p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.75}
+.rule p b{color:var(--ink)}
+
+.legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+
+.foot{margin-top:80px;padding-top:28px;border-top:1px solid var(--line);display:flex;
+  justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.foot b{color:var(--ink-soft)}
+
+.toTop{position:fixed;inset-inline-start:24px;bottom:24px;z-index:70;width:44px;height:44px;border-radius:50%;
+  background:var(--ink);color:var(--gold);display:grid;place-items:center;font-size:16px;cursor:pointer;
+  box-shadow:0 10px 24px rgba(67,20,7,.25);opacity:0;pointer-events:none;transition:.25s}
+.toTop.show{opacity:1;pointer-events:auto}
+
+@media (max-width:1180px){
+  .layout{grid-template-columns:1fr;gap:36px}
+  .sidenav{position:static;flex-direction:row;overflow-x:auto;padding-bottom:8px;
+    border-bottom:1px solid var(--line-soft);gap:6px}
+  .sidenav .navtitle{display:none}
+  .sidenav a{white-space:nowrap}
+  .idea-body{grid-template-columns:1fr}
+  .spaces{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .wrap{padding:0 18px 80px}
+  .topbar-in{padding:10px 18px}
+  .spaces{grid-template-columns:minmax(0,1fr)}
+  .matrix{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><span class="mark">ص</span> صَوْن — مخطط تنظيم الميزات</div>
+    <div class="topmeta">
+      <span class="pill-meta">مسودة داخلية · 2.2.0</span>
+      <span class="pill-meta">17 وجهة · 14 ميزة تطبيق · 12 قسماً</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="pagehead">
+    <div class="eyebrow">Information Architecture</div>
+    <h1>تسعة مواكب تصميمية لتنظيم ميزات صَوْن</h1>
+    <p>كل موك أدناه مرسوم بنفس هوية «فجر الأمل» المستخدمة في التطبيق — كريمي دافئ، برتقالي محروق، ذهبي الفجر. الأرقام مأخوذة من الكود لا من التقدير.</p>
+    <div class="headstats">
+      <div class="stat"><b>17</b><span>وجهة تنقّل في NavHost</span></div>
+      <div class="stat"><b>12</b><span>قسماً في الصفحة الرئيسية</span></div>
+      <div class="stat"><b>7</b><span>مفاتيح فورية</span></div>
+      <div class="stat"><b>14</b><span>ميزة تطبيق (FeatureCatalog)</span></div>
+      <div class="stat"><b>6</b><span>منصات اجتماعية</span></div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ================= NAV ================= -->
+    <nav class="sidenav" id="nav">
+      <div class="navtitle">المحتويات</div>
+      <a href="#principle" class="on"><i>◆</i> المبدأ: أربع مساحات</a>
+      <a href="#i1"><i>1</i> لوحة لا كتالوج</a>
+      <a href="#i2"><i>2</i> شريط «يحتاج انتباهك»</a>
+      <a href="#i3"><i>3</i> نظام حالة موحّد</a>
+      <a href="#i4"><i>4</i> فهرس الميزات</a>
+      <a href="#i5"><i>5</i> تجميع ميزات التطبيقات</a>
+      <a href="#i6"><i>6</i> توحيد التسميات</a>
+      <a href="#i7"><i>7</i> قاعدة الرئيسية/الإعدادات</a>
+      <a href="#i8"><i>8</i> كشف تدريجي بعد الترحيب</a>
+      <a href="#i9"><i>9</i> قياس ذاتي بلا تتبّع</a>
+    </nav>
+
+    <main>
+
+      <!-- ================= PRINCIPLE ================= -->
+      <section class="idea" id="principle">
+        <div class="idea-head">
+          <div class="idea-num">◆</div>
+          <div>
+            <h2 class="idea-title">المبدأ: أربع مساحات، وقاعدة واحدة</h2>
+            <p class="idea-sub">كل ميزة تسكن مساحة واحدة فقط، وكل مساحة تجيب عن سؤال واحد. هذا ما يجعل التصنيف قراراً لا ذوقاً.</p>
+          </div>
+        </div>
+
+        <div class="rule">
+          <div class="n">!</div>
+          <p><b>القاعدة:</b> إن لم تستطع أن تقول أيّ مساحة تجيب عن سؤالك — «ما الذي يوقفني؟» «كيف أصمد؟» «لماذا فعلت ذلك؟» «ما الذي يبقيها قائمة؟» — فالتصنيف غير محسوم بعد، والمكان مؤجَّل.</p>
+        </div>
+
+        <div class="spaces">
+          <div class="space s1">
+            <div class="ic">🛡</div>
+            <b>الحارس</b>
+            <div class="q">ما الذي يوقفك؟</div>
+            <ul>
+              <li>المفتاح الرئيسي</li><li>الطبقات السبع</li><li>وضع دائم</li><li>الوضع الصارم</li>
+              <li>قائمة الحجب</li><li>ميزات التطبيقات</li><li>الجداول</li><li>قفل الوقت</li>
+            </ul>
+          </div>
+          <div class="space s2">
+            <div class="ic">🧘</div>
+            <b>الاتزان</b>
+            <div class="q">كيف تصمد؟</div>
+            <ul>
+              <li>جلسة التركيز</li><li>التركيز العميق</li><li>الحارس الليلي</li>
+              <li>تحدّي 30 يوماً</li><li>تمارين التنفس</li>
+            </ul>
+          </div>
+          <div class="space s3">
+            <div class="ic">◔</div>
+            <b>البصيرة</b>
+            <div class="q">لماذا فعلت ذلك؟</div>
+            <ul>
+              <li>السلسلة</li><li>السجل</li><li>المحفّزات</li>
+              <li>وقت الشاشة</li><li>فحص الحماية</li>
+            </ul>
+          </div>
+          <div class="space s4">
+            <div class="ic">◈</div>
+            <b>العهد</b>
+            <div class="q">ما الذي يبقيها قائمة؟</div>
+            <ul>
+              <li>المساءلة</li><li>النسخ الاحتياطي</li><li>وضع ولي الأمر</li>
+              <li>الملف</li><li>الخصوصية</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sidecard" style="max-width:640px;margin:0 auto">
+          <h4>لماذا هذا يعمل مع تطبيق كهذا</h4>
+          <ul>
+            <li><b>المشكلة الحقيقية ليست عدد الميزات</b> بل أن التصنيف اليوم مبني على «متى أُضيفت» لا على «ما هدفها» — قسم «أدوات» يحتوي اليوم أربعة أعمال مختلفة: إلزام (الحارس الليلي)، فهم (المحفّزات)، اجتماعي (المساءلة)، بيانات (النسخ الاحتياطي).</li>
+            <li>المساحات الأربع تغطي <b>17 وجهة تنقّل + 7 مفاتيح + 14 ميزة تطبيق</b> دون فائض — أي ميزة جديدة تجد مكانها بسؤالين.</li>
+            <li>«الاتزان» و«البصيرة» يسمّيان شيئاً لا يسمّيه التطبيق اليوم: العلاقةَ بين الحظر من جهة، والانضباط من جهة أخرى.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 1 ================= -->
+      <section class="idea" id="i1">
+        <div class="idea-head">
+          <div class="idea-num">1</div>
+          <div>
+            <h2 class="idea-title">الرئيسية تصبح لوحة، لا كتالوجاً</h2>
+            <p class="idea-sub">تقصير التمرير من 12 قسماً إلى 7 — والأهم: طولها ثابت مهما نمت الميزات.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage">
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>صَوْن</b><span>أهلاً، أحمد</span></div>
+                      <div class="gear">⚙</div>
+                    </div>
+                    <div class="d-card">
+                      <div class="hero">
+                        <div class="ring"><div class="inner">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4" fill="#FDBA74" stroke="none"/></svg>
+                        </div></div>
+                        <div class="txt"><b>محميّ الآن</b><span>طبقتان تعملان · فلتر DNS + الوصولية</span></div>
+                      </div>
+                      <div style="margin-top:9px;display:flex;align-items:center;gap:6px">
+                        <span style="width:7px;height:7px;border-radius:9px;background:var(--success)"></span>
+                        <span style="font-size:10px;font-weight:800;color:var(--success)">الحماية تعمل</span>
+                        <span style="margin-inline-start:auto;font-size:10px;color:var(--ink-soft);font-weight:700">إيقاف مؤقت</span>
+                      </div>
+                    </div>
+                    <div class="streak">
+                      <div class="top"><div class="ic">🏆</div><div><b>سلسلة الأيام</b><span>اليوم محميّ ✓</span></div></div>
+                      <div class="num"><b>12</b><span>يوماً</span></div>
+                      <div class="week"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+                      <div class="week"><u>س</u><u>ح</u><u>ن</u><u>ث</u><u>ر</u><u>خ</u><u>ج</u></div>
+                      <div class="metrics"><div><b>21</b><span>أطول سلسلة</span></div><div><b>48</b><span>إجمالي الأيام</span></div><div><b>9</b><span>جلسات</span></div></div>
+                    </div>
+                    <div class="sec-head"><div class="t">مفاتيح الحماية</div><div class="h">كل مفتاح يعمل من هنا مباشرة</div></div>
+                    <div class="grid2">
+                      <div class="ptog"><span class="ic">⛔</span><b>فلتر الإباحية</b><span>قوائم محلّية</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🔎</span><b>SafeSearch</b><span>إجبار البحث</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🚫</span><b>الإعلانات</b><span>قائمة مدمجة</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🧩</span><b>DoH</b><span>DNS مشفّر</span><div class="sw"></div></div>
+                    </div>
+                    <div class="d-card"><div class="row"><div class="ic">🔔</div><div class="tx"><b>كتم الإشعارات</b><span>يحتاج إذن الإشعارات</span></div><div class="sw"></div></div></div>
+                    <div class="d-card"><div class="row"><div class="ic">🔒</div><div class="tx"><b>الوضع الصارم</b><span>قفل المفاتيح بالرقم</span></div><div class="sw on"></div></div></div>
+                    <div class="sec-head"><div class="t">أدوات</div></div>
+                    <div class="grid2">
+                      <div class="tile"><div class="ic">🌙</div><div class="tx"><b>الحارس الليلي</b><span>انضباط صارم ليلاً</span></div><div class="ar">‹</div></div>
+                      <div class="tile"><div class="ic">🧠</div><div class="tx"><b>المحفّزات</b><span>اعرف ما يدفعك</span></div><div class="ar">‹</div></div>
+                      <div class="tile"><div class="ic">👥</div><div class="tx"><b>المساءلة</b><span>تقريرك الأسبوعي</span></div><div class="ar">‹</div></div>
+                      <div class="tile"><div class="ic">💾</div><div class="tx"><b>النسخ الاحتياطي</b><span>نسخة مشفّرة</span></div><div class="ar">‹</div></div>
+                    </div>
+                    <div class="tile"><div class="ic">👪</div><div class="tx"><b>وضع ولي الأمر</b><span>رقم ثانٍ يقفل الإدارة</span></div><div class="ar">‹</div></div>
+                    <div class="sec-head"><div class="t">قفل صَوْن</div></div>
+                    <div class="d-card"><div class="row"><div class="ic">⏳</div><div class="tx"><b>قفل الوقت</b><span>مفعّل · يتبقّى 5 ساعات</span></div><div class="sw on"></div></div></div>
+                    <div class="sec-head"><div class="t">إدارة</div></div>
+                    <div class="grid2">
+                      <div class="tile"><div class="ic">⛔</div><div class="tx"><b>التطبيقات والمواقع</b><span>12 عنصراً فعّالاً</span></div><div class="ar">‹</div></div>
+                      <div class="tile"><div class="ic">🗓</div><div class="tx"><b>الجداول</b><span>3 نوافذ زمنية</span></div><div class="ar">‹</div></div>
+                    </div>
+                    <p style="font-size:9px;color:var(--muted);text-align:center;margin:4px 0 0">تستخدم 12 قسماً · تحتاج تمريراً طويلاً للوصول إلى «قفل الوقت»</p>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>قبل</b> 12 قسماً · نموّ خطّي</p>
+            </div>
+
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>صَوْن</b><span>أهلاً، أحمد</span></div>
+                      <div class="gear">⚙</div>
+                    </div>
+                    <div class="d-card">
+                      <div class="hero">
+                        <div class="ring"><div class="inner">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4" fill="#FDBA74" stroke="none"/></svg>
+                        </div></div>
+                        <div class="txt"><b>محميّ الآن</b><span>طبقتان تعملان · فلتر DNS + الوصولية</span></div>
+                      </div>
+                    </div>
+                    <div class="streak">
+                      <div class="top"><div class="ic">🏆</div><div><b>سلسلة الأيام</b><span>اليوم محميّ ✓</span></div></div>
+                      <div class="num"><b>12</b><span>يوماً</span></div>
+                      <div class="week"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+                      <div class="week"><u>س</u><u>ح</u><u>ن</u><u>ث</u><u>ر</u><u>خ</u><u>ج</u></div>
+                      <div class="metrics"><div><b>21</b><span>أطول سلسلة</span></div><div><b>48</b><span>إجمالي الأيام</span></div><div><b>9</b><span>جلسات</span></div></div>
+                    </div>
+                    <div class="alert info"><span>⚠</span><span>جدول «الدراسة» يبدأ 08:00</span><span class="ar">‹</span></div>
+                    <div class="sec-head"><div class="t">مفاتيح الحماية</div><div class="h">كل مفتاح يعمل من هنا مباشرة</div></div>
+                    <div class="grid2">
+                      <div class="ptog"><span class="ic">⛔</span><b>فلتر الإباحية</b><span>قوائم محلّية</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🔎</span><b>SafeSearch</b><span>إجبار البحث</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🚫</span><b>الإعلانات</b><span>قائمة مدمجة</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🧩</span><b>DoH</b><span>DNS مشفّر</span><div class="sw"></div></div>
+                      <div class="ptog"><span class="ic">🔕</span><b>كتم الإشعارات</b><span>يحتاج إذناً</span><div class="sw"></div></div>
+                      <div class="ptog"><span class="ic">🔒</span><b>الوضع الصارم</b><span>قفل بالرقم</span><div class="sw on"></div></div>
+                    </div>
+                    <div class="d-card"><div class="row"><div class="ic">🔁</div><div class="tx"><b>الوضع الدائم</b><span>دائماً مشغّل</span></div><div class="sw on"></div></div></div>
+                    <div class="fchips"><span class="on">خفيف</span><span>متوازن</span><span>الحد الأقصى</span></div>
+
+                    <div class="sec-head"><div class="t">مساحتك</div><div class="h">كل ميزة في مكان واحد — اضغطة واحدة</div></div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:18px;flex:none">🛡</div>
+                      <div style="flex:1;min-width:0"><b style="display:block;font-size:13px;font-weight:800">الحارس</b><span style="font-size:9.5px;color:var(--ink-soft)">7 مفاتيح · 12 عنصراً · 3 جداول</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--gold-container);color:var(--gold-deep);display:grid;place-items:center;font-size:18px;flex:none">🧘</div>
+                      <div style="flex:1;min-width:0"><b style="display:block;font-size:13px;font-weight:800">الاتزان</b><span style="font-size:9.5px;color:var(--ink-soft)">تحدّي 30 يوماً · حارس ليلي</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--success-soft);color:var(--success);display:grid;place-items:center;font-size:18px;flex:none">◔</div>
+                      <div style="flex:1;min-width:0"><b style="display:block;font-size:13px;font-weight:800">البصيرة</b><span style="font-size:9.5px;color:var(--ink-soft)">السجل · المحفّزات · وقت الشاشة</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:#EDE7E1;color:var(--ink);display:grid;place-items:center;font-size:18px;flex:none">◈</div>
+                      <div style="flex:1;min-width:0"><b style="display:block;font-size:13px;font-weight:800">العهد</b><span style="font-size:9.5px;color:var(--ink-soft)">المساءلة · نسخة احتياطية · ولي الأمر</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <p style="font-size:9px;color:var(--muted);text-align:center;margin:2px 0 0">بياناتك على جهازك · لا حسابات ولا تتبّع</p>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>بعد</b> 7 أقسام · أربع مساحات</p>
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>ما يتغيّر</h4>
+            <ul>
+              <li>الأقسام «تحدّي وتركيز» و«أدوات» و«إدارة» و«قفل صَوْن» تُدمج في <b>أربع بطاقات مساحات</b>.</li>
+              <li>المفاتيح الفورية تبقى كما هي — لا نقاش فيها: هي ما يُستخدم يومياً.</li>
+              <li>«قائمة الحجب» و«الجداول» تنتقلان داخل مساحة <b>الحارس</b>.</li>
+            </ul>
+            <p style="margin-top:14px"><b style="color:var(--ink)">التوتر مع المبدأ القائم:</b> النص الحالي يقول «لا تبويبات ولا تنقّل». الاقتراح يضيّقه: <b style="color:var(--ink)">المفاتيح بلا تنقّل، والميزات نافذة واحدة خلفها</b> — «لا تنقّل» تعني «لا حفر»، لا «لا أبواب».</p>
+            <div class="badges"><span class="badge impact">أثر عالٍ</span><span class="badge effort">جهد متوسط</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 2 ================= -->
+      <section class="idea" id="i2">
+        <div class="idea-head">
+          <div class="idea-num">2</div>
+          <div>
+            <h2 class="idea-title">شريط «يحتاج انتباهك» — ترتيب حسب حالتك أنت</h2>
+            <p class="idea-sub">أقوى مقياس لترتيب الميزات: لا نرتّب حسب تصنيفنا نحن، بل حسب ما يحدث الآن.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage">
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>صَوْن</b><span>أهلاً، أحمد</span></div>
+                      <div class="gear">⚙</div>
+                    </div>
+                    <div class="sec-head"><div class="t">يحتاج انتباهك</div><div class="h">٣ أمور الآن · مرتّبة بالأهمية</div></div>
+                    <div class="alert urgent"><span>🔒</span><span>صيانة الحماية متوقّفة — إذن الإشعارات ناقص</span><span class="ar">‹</span></div>
+                    <div class="alert info"><span>🗓</span><span>جدول «الدراسة» يبدأ 08:00</span><span class="ar">‹</span></div>
+                    <div class="alert info"><span>🏅</span><span>يوم التحدّي لم يُسجَّل بعد</span><span class="ar">‹</span></div>
+                    <div class="d-card">
+                      <div class="hero">
+                        <div class="ring r-down"><div class="inner">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.4A2 2 0 0 0 4.3 20.4h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+                        </div></div>
+                        <div class="txt"><b>الحماية معطّلة</b><span>لم يُمنح إذن الإشعارات بعد</span></div>
+                      </div>
+                    </div>
+                    <div class="sec-head"><div class="t">مفاتيح الحماية</div></div>
+                    <div class="grid2">
+                      <div class="ptog"><span class="ic">⛔</span><b>فلتر الإباحية</b><span>قوائم محلّية</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🔎</span><b>SafeSearch</b><span>إجبار البحث</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🚫</span><b>الإعلانات</b><span>قائمة مدمجة</span><div class="sw on"></div></div>
+                      <div class="ptog"><span class="ic">🧩</span><b>DoH</b><span>DNS مشفّر</span><div class="sw"></div></div>
+                      <div class="ptog"><span class="ic">🔕</span><b>كتم الإشعارات</b><span>يحتاج إذناً</span><div class="sw"></div></div>
+                      <div class="ptog"><span class="ic">🔒</span><b>الوضع الصارم</b><span>قفل بالرقم</span><div class="sw on"></div></div>
+                    </div>
+                    <div class="sec-head"><div class="t">مساحتك</div></div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:18px;flex:none">🛡</div>
+                      <div style="flex:1"><b style="display:block;font-size:13px;font-weight:800">الحارس</b><span style="font-size:9.5px;color:var(--ink-soft)">7 مفاتيح · 12 عنصراً · 3 جداول</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--gold-container);color:var(--gold-deep);display:grid;place-items:center;font-size:18px;flex:none">🧘</div>
+                      <div style="flex:1"><b style="display:block;font-size:13px;font-weight:800">الاتزان</b><span style="font-size:9.5px;color:var(--ink-soft)">تحدّي 30 يوماً · حارس ليلي</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--success-soft);color:var(--success);display:grid;place-items:center;font-size:18px;flex:none">◔</div>
+                      <div style="flex:1"><b style="display:block;font-size:13px;font-weight:800">البصيرة</b><span style="font-size:9.5px;color:var(--ink-soft)">السجل · المحفّزات · وقت الشاشة</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:#EDE7E1;color:var(--ink);display:grid;place-items:center;font-size:18px;flex:none">◈</div>
+                      <div style="flex:1"><b style="display:block;font-size:13px;font-weight:800">العهد</b><span style="font-size:9.5px;color:var(--ink-soft)">المساءلة · نسخة احتياطية · ولي الأمر</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>الرئيسية</b> الشريط يعلو كل شيء</p>
+            </div>
+
+            <div style="width:340px">
+              <div class="sidecard">
+                <h4>من أين تأتي هذه الأمور؟</h4>
+                <p>كلٌّ منها <b style="color:var(--ink)">محسوب أصلاً</b> في التطبيق — لا عمل جديد تقريباً:</p>
+                <ul>
+                  <li><b>الجداول</b> — `ScheduleEvaluator` يعرف النافذة القادمة.</li>
+                  <li><b>نقص الأذونات</b> — `PermissionsHelper` + `ProtectionCheckup.failed`.</li>
+                  <li><b>يوم التحدّي</b> — `ChallengePolicy` + سجل `protected_days`.</li>
+                  <li><b>المحاولات المرفوضة</b> — `BlockJournal` (urgesLast7 / urgesTotal).</li>
+                  <li><b>قفل الوقت</b> — `LockdownPolicy` + `lockdownRemaining`.</li>
+                </ul>
+              </div>
+              <div class="sidecard" style="margin-top:16px">
+                <h4>ترتيب الأولوية</h4>
+                <ul>
+                  <li><b>1.</b> ما يوقف الحماية عن العمل (خطأ حرج)</li>
+                  <li><b>2.</b> ما ينتهي خلال ساعة (زمني)</li>
+                  <li><b>3.</b> ما يحتاج قراراً منك (التزام)</li>
+                  <li><b>4.</b> ما يهمّك فقط (اكتشاف)</li>
+                </ul>
+                <p style="margin-top:12px">الشريط يُخفي نفسه كلياً حين لا يوجد ما يستدعيه — ولا يأخذ مساحة على الشاشة إلا عند الحاجة.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>لماذا</h4>
+            <p>الصفحة الرئيسية اليوم ترتيبها ثابت: نحقر على «مفاتيح الحماية» فتجدها دائماً هناك. الشريط يضيف <b style="color:var(--ink)">طبقة ثانية فوق الترتيب الثابت</b> — لا يلغيه — فتبقى المفاتيح في مكانها، ويأتي ما العاجل فوقها.</p>
+            <div class="badges"><span class="badge impact">أثر عالٍ</span><span class="badge effort">جهد صغير</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 3 ================= -->
+      <section class="idea" id="i3">
+        <div class="idea-head">
+          <div class="idea-num">3</div>
+          <div>
+            <h2 class="idea-title">نظام حالة موحّد — شريحة تصميم صغيرة، أثر كبير</h2>
+            <p class="idea-sub">كل قائمة في التطبيق تعرض «حالة» العنصر لا رقماً فقط.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage">
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>الحارس</b><span>حالة كل مفتاح</span></div>
+                      <div class="gear">⚙</div>
+                    </div>
+                    <div class="d-card">
+                      <div class="row">
+                        <div class="ic">⛔</div>
+                        <div class="tx"><b>فلتر الإباحية</b><span>قائمة محلّية · 12 ألف نطاق</span></div>
+                        <span class="chip on"><i></i> تعمل</span>
+                      </div>
+                      <div class="row">
+                        <div class="ic">🔎</div>
+                        <div class="tx"><b>SafeSearch</b><span>إجبار محركات البحث</span></div>
+                        <span class="chip on"><i></i> تعمل</span>
+                      </div>
+                      <div class="row">
+                        <div class="ic">🔕</div>
+                        <div class="tx"><b>كتم إشعارات التطبيقات</b><span>يحتاج إذن الإشعارات</span></div>
+                        <span class="chip perm">تحتاج إذناً</span>
+                      </div>
+                      <div class="row">
+                        <div class="ic">🌙</div>
+                        <div class="tx"><b>الحارس الليلي</b><span>22:00 ← 06:00</span></div>
+                        <span class="chip lock">مقفلة · قفل الوقت</span>
+                      </div>
+                      <div class="row">
+                        <div class="ic">🧩</div>
+                        <div class="tx"><b>حجب DNS المشفّر</b><span>يمنع تخطّي الفلتر</span></div>
+                        <span class="chip off">متوقّفة</span>
+                      </div>
+                      <div class="row">
+                        <div class="ic">🔒</div>
+                        <div class="tx"><b>الوضع الصارم</b><span>يتطلّب رقماً سرياً</span></div>
+                        <span class="chip on"><i></i> تعمل</span>
+                      </div>
+                    </div>
+                    <div class="d-card">
+                      <div class="row">
+                        <div class="ic">🗓</div>
+                        <div class="tx"><b>الدراسة</b><span>أحد–الخميس · 16:00 ← 18:00</span></div>
+                        <span class="chip on"><i></i> نشط الآن</span>
+                      </div>
+                      <div class="row">
+                        <div class="ic">🗓</div>
+                        <div class="tx"><b>وقت النوم</b><span>كل يوم · 23:00 ← 07:00</span></div>
+                        <span class="chip off">غير نشط</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>القوائم</b> كل صف يحمل حالة</p>
+            </div>
+
+            <div style="width:330px">
+              <div class="sidecard">
+                <h4>مفردات الحالة الأربع</h4>
+                <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+                  <div style="display:flex;align-items:center;gap:10px"><span class="chip on" style="font-size:11px"><i></i> تعمل</span><span style="font-size:12px;color:var(--ink-soft)">المفتاح مفعّل الآن</span></div>
+                  <div style="display:flex;align-items:center;gap:10px"><span class="chip off" style="font-size:11px">متوقّفة</span><span style="font-size:12px;color:var(--ink-soft)">إعداد معطّل</span></div>
+                  <div style="display:flex;align-items:center;gap:10px"><span class="chip perm" style="font-size:11px">تحتاج إذناً</span><span style="font-size:12px;color:var(--ink-soft)">تبقى معطّلة حتى الإذن</span></div>
+                  <div style="display:flex;align-items:center;gap:10px"><span class="chip lock" style="font-size:11px">مقفلة</span><span style="font-size:12px;color:var(--ink-soft)">الرقم السري أو قفل الوقت يمنعك</span></div>
+                </div>
+                <p style="margin-top:16px">الشرائح الأربع تُستخدم في <b style="color:var(--ink)">كل</b> مكان: المساحات، فهرس الميزات، قوائم الحجب، الإعدادات. لغة واحدة يتعلّمها المستخدم مرة واحدة.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>ما يتغيّر</h4>
+            <p>اليوم `ManageTile` يعرض نصاً عددياً واحداً: «%d عنصراً فعّالاً»، «%d نافذة زمنية». بعد الفكرة:
+            <b style="color:var(--ink)">العدد يبقى في السطر الثاني، والحالة تُضاف كشارة</b>.</p>
+            <p>الفائدة الحقيقية في الحالات الصعبة: «تحتاج إذناً» و«مقفلة» تُخبران المستخدم <b style="color:var(--ink)">لماذا</b> لم يعمل مفتاح بدل أن يبدو معطّلاً بلا سبب — وهي بالضبط الحالة التي دفعت الفريقَ إلى إضافة رسالة «تعذّر الإيقاف» في 2.2.0.</p>
+            <div class="badges"><span class="badge impact">أثر عالٍ</span><span class="badge effort">جهد صغير</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 4 ================= -->
+      <section class="idea" id="i4">
+        <div class="idea-head">
+          <div class="idea-num">4</div>
+          <div>
+            <h2 class="idea-title">فهرس «كل الميزات» قابل للبحث</h2>
+            <p class="idea-sub">مكان واحد يُجيب على «ماذا يستطيع التطبيق أن يفعل؟» — ومكان إضافة الميزات القادمة دون نموّ الرئيسية.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage">
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>كل الميزات</b><span>24 ميزة · 4 مساحات</span></div>
+                    </div>
+                    <div class="search"><span class="mag">🔎</span><span>ابحث عن ميزة…</span></div>
+                    <div class="fchips"><span class="on">الكل</span><span>الحارس</span><span>الاتزان</span><span>البصيرة</span><span>العهد</span></div>
+                    <div class="sec-head"><div class="t">الحارس</div><div class="h">8 ميزات</div></div>
+                    <div class="d-card" style="padding:4px 12px">
+                      <div class="row"><div class="ic">⛔</div><div class="tx"><b>فلتر الإباحية</b><span>حجب المواقع الإباحية محلياً</span></div><span class="chip on"><i></i> تعمل</span></div>
+                      <div class="row"><div class="ic">📋</div><div class="tx"><b>قائمة الحجب</b><span>12 عنصراً فعّالاً</span></div><span class="chip on"><i></i> تعمل</span></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>ميزات التطبيقات</b><span>Reels · Explore · Search · 11 تطبيقاً</span></div><span class="chip on"><i></i> تعمل</span></div>
+                      <div class="row"><div class="ic">🗓</div><div class="tx"><b>الجداول</b><span>3 نوافذ زمنية</span></div><span class="chip on"><i></i> تعمل</span></div>
+                      <div class="row"><div class="ic">⏳</div><div class="tx"><b>قفل الوقت</b><span>قفل مؤقت للحماية</span></div><span class="chip lock">مقفلة</span></div>
+                    </div>
+                    <div class="sec-head"><div class="t">الاتزان</div><div class="h">5 ميزات</div></div>
+                    <div class="d-card" style="padding:4px 12px">
+                      <div class="row"><div class="ic">⏱</div><div class="tx"><b>جلسة التركيز</b><span>25 / 50 / 90 دقيقة</span></div><span class="chip off">متوقّفة</span></div>
+                      <div class="row"><div class="ic">🎯</div><div class="tx"><b>التركيز العميق</b><span>قائمة بيضاء + نافذة خروج</span></div><span class="chip off">متوقّفة</span></div>
+                      <div class="row"><div class="ic">🌙</div><div class="tx"><b>الحارس الليلي</b><span>انضباط صارم ليلاً</span></div><span class="chip lock">مقفلة</span></div>
+                      <div class="row"><div class="ic">🏅</div><div class="tx"><b>تحدّي 30 يوماً</b><span>يوم 12 من 30</span></div><span class="chip on"><i></i> جارية</span></div>
+                      <div class="row"><div class="ic">🫁</div><div class="tx"><b>تمارين التنفس</b><span>4-7-8 · تأريض · تأخير</span></div><span class="chip on"><i></i> جاهزة</span></div>
+                    </div>
+                    <div class="sec-head"><div class="t">البصيرة</div><div class="h">5 ميزات</div></div>
+                    <div class="d-card" style="padding:4px 12px">
+                      <div class="row"><div class="ic">🏆</div><div class="tx"><b>السلسلة والإنجازات</b><span>12 يوماً · أطول 21</span></div><span class="chip new">جديد</span></div>
+                      <div class="row"><div class="ic">🧠</div><div class="tx"><b>محلّل المحفّزات</b><span>الذروة 21:00 · ملل</span></div><span class="chip on"><i></i> تعمل</span></div>
+                      <div class="row"><div class="ic">📈</div><div class="tx"><b>السجل الأسبوعي</b><span>٢٤ محاولة مرفوضة</span></div><span class="chip on"><i></i> تعمل</span></div>
+                    </div>
+                    <div class="sec-head"><div class="t">العهد</div><div class="h">6 ميزات</div></div>
+                    <div class="d-card" style="padding:4px 12px">
+                      <div class="row"><div class="ic">👥</div><div class="tx"><b>شريك المساءلة</b><span>تقرير أسبوعي</span></div><span class="chip off">غير معدّ</span></div>
+                      <div class="row"><div class="ic">💾</div><div class="tx"><b>النسخ الاحتياطي</b><span>.sawnbak مشفّر AES-256</span></div><span class="chip off">لم يُصدَّر</span></div>
+                      <div class="row"><div class="ic">👪</div><div class="tx"><b>وضع ولي الأمر</b><span>رقم ثانٍ يقفل الإدارة</span></div><span class="chip off">غير مُفعَّل</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>الفهرس</b> 24 ميزة · بحث + تجميع</p>
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>وظائف ثلاثية</h4>
+            <ul>
+              <li><b>اكتشاف</b> — المستخدم لا يعرف أن التطبيق فيه «تحليل المحفّزات» ولا يجدها إلا بالتمرير.</li>
+              <li><b>تدقيق</b> — «ما الذي يعمل وما المتوقّف؟» في شاشة واحدة بدل فتح كل قسم.</li>
+              <li><b>مَقبِل للميزات القادمة</b> — widget، بصمة، خريطة السنة: تدخل الفهرس ولا تكبر الرئيسية.</li>
+            </ul>
+            <p style="margin-top:14px">معمارياً: يُبنى كـ <b style="color:var(--ink)">FeatureIndex</b> في <code>core:domain</code> بنفس نمط <code>FeatureCatalog</code> القائم — قائمة وصفية نقية بلا Compose، وقابلة للاختبار.</p>
+            <div class="badges"><span class="badge impact">أثر عالٍ</span><span class="badge effort">جهد متوسط</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 5 ================= -->
+      <section class="idea" id="i5">
+        <div class="idea-head">
+          <div class="idea-num">5</div>
+          <div>
+            <h2 class="idea-title">تجميع ميزات التطبيقات حسب التطبيق لا حسب الميزة</h2>
+            <p class="idea-sub">١٤ مفتاحاً مسطّحاً في `FeatureCatalog` ← ٨ مجموعات تطبيقات.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage">
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>ميزات التطبيقات</b><span>14 ميزة · 8 تطبيقات</span></div>
+                    </div>
+                    <div class="tree">
+                      <div class="app">
+                        <div class="mono" style="background:linear-gradient(140deg,#833AB4,#E1306C)">ig</div>
+                        <div class="nm"><b>إنستغرام</b><span>Reels · Explore · Search</span></div>
+                        <span class="count">3</span><span class="ar" style="color:var(--ink-soft);font-size:11px">⌃</span>
+                      </div>
+                      <div class="kids">
+                        <div class="kid"><b>Reels</b><span class="chip on"><i></i> تعمل</span></div>
+                        <div class="kid"><b>Explore</b><span class="chip off">متوقّفة</span></div>
+                        <div class="kid"><b>Search</b><span class="chip off">متوقّفة</span></div>
+                      </div>
+
+                      <div class="app">
+                        <div class="mono" style="background:linear-gradient(140deg,#FF0000,#B00020)">yt</div>
+                        <div class="nm"><b>يوتيوب</b><span>Shorts · 3 نسخ (عادية · Vanced · ReVanced)</span></div>
+                        <span class="count">1</span><span style="color:var(--ink-soft);font-size:11px">⌄</span>
+                      </div>
+
+                      <div class="app">
+                        <div class="mono" style="background:linear-gradient(140deg,#1877F2,#0B5AC4)">f</div>
+                        <div class="nm"><b>فيسبوك</b><span>Reels · نسخة Lite مشمولة</span></div>
+                        <span class="count">1</span><span style="color:var(--ink-soft);font-size:11px">⌄</span>
+                      </div>
+
+                      <div class="app">
+                        <div class="mono" style="background:linear-gradient(140deg,#25F4EE,#FE2C55)">tt</div>
+                        <div class="nm"><b>تيك توك</b><span>For You / Following</span></div>
+                        <span class="count">1</span><span style="color:var(--ink-soft);font-size:11px">⌄</span>
+                      </div>
+
+                      <div class="app">
+                        <div class="mono" style="background:linear-gradient(140deg,#FFFC00,#FFD400);color:#111">s</div>
+                        <div class="nm"><b>سناب شات</b><span>Spotlight &amp; Stories</span></div>
+                        <span class="count">1</span><span style="color:var(--ink-soft);font-size:11px">⌄</span>
+                      </div>
+
+                      <div class="app">
+                        <div class="mono" style="background:linear-gradient(140deg,#25D366,#128C7E)">wa</div>
+                        <div class="nm"><b>واتساب</b><span>Updates · نسخة الأعمال مشمولة</span></div>
+                        <span class="count">1</span><span style="color:var(--ink-soft);font-size:11px">⌄</span>
+                      </div>
+
+                      <div class="app">
+                        <div class="mono" style="background:linear-gradient(140deg,#FF4500,#D3300A)">ig</div>
+                        <div class="nm"><b>إنستغرام لايت</b><span>Reels · Search</span></div>
+                        <span class="count">2</span><span style="color:var(--ink-soft);font-size:11px">⌄</span>
+                      </div>
+                    </div>
+                    <div class="alert info"><span>ℹ</span><span>التغطية تعتمد على معرّفات الواجهة — قد تتغيّر مع تحديثات التطبيقات.</span></div>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>بعد</b> 8 مجموعات</p>
+            </div>
+
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen" style="background:#F5F5F4">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>ميزات التطبيقات</b><span>14 مفتاحاً</span></div>
+                    </div>
+                    <div class="d-card" style="padding:6px 12px">
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>YouTube Shorts</b><span>com.google.android.youtube</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>YouTube Vanced Shorts</b><span>com.vanced.android.youtube</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>YouTube ReVanced Shorts</b><span>app.revanced.android.youtube</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>Instagram Reels</b><span>com.instagram.android</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>Instagram Lite Reels</b><span>com.instagram.lite</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>Instagram Explore</b><span>com.instagram.android</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>Instagram Search</b><span>com.instagram.android</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>Instagram Lite Search</b><span>com.instagram.lite</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>Facebook Reels</b><span>com.facebook.katana</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>Facebook Lite Reels</b><span>com.facebook.lite</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>TikTok Feed</b><span>com.zhiliaoapp.musically</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>Snapchat Spotlight</b><span>com.snapchat.android</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>WhatsApp Updates</b><span>com.whatsapp</span></div><div class="sw on"></div></div>
+                      <div class="row"><div class="ic">📱</div><div class="tx"><b>WhatsApp Business Updates</b><span>com.whatsapp.w4b</span></div><div class="sw on"></div></div>
+                    </div>
+                    <p style="font-size:9.5px;color:var(--muted);text-align:center">جدار مفاتيح متطابقة تقريباً</p>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>قبل</b> 14 مفتاحاً مسطّحاً</p>
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>ما يتغيّر في الكود</h4>
+            <ul>
+              <li>حقل جديد في <code>AppFeature</code>: <code>groupKey</code> + <code>groupLabel</code>، ودمج نسخ YouTube الثلاث تحت مفتاح واحد.</li>
+              <li>النسخ المتعدّدة (Lite / Vanced / Business) تُجمَّع في <b>مجموعة واحدة</b> لأن المستخدم لا يعرف أن «Lite» تطبيق منفصل أصلاً.</li>
+              <li>الفلترة في <code>BlockEngine</code> تبقى كما هي — التغيير واجهة فقط، لا منطق.</li>
+            </ul>
+            <p style="margin-top:14px"><b style="color:var(--ink)">ملاحظة مقابِلة:</b> `SocialPlatform` فيه 6 منصات (بما فيها Reddit وX التي لا تملك ميزات `AppFeature`) — الإبقاء على الفهرسين منفصلين أفضل من دمجهما قسراً.</p>
+            <div class="badges"><span class="badge impact">أثر متوسط</span><span class="badge effort">جهد صغير</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 6 ================= -->
+      <section class="idea" id="i6">
+        <div class="idea-head">
+          <div class="idea-num">6</div>
+          <div>
+            <h2 class="idea-title">توحيد التسميات — القاعدة: اسم صفة + سطر واحد</h2>
+            <p class="idea-sub">أسماء الأقسام اليوم تخلط أنواعاً مختلفة: أسماء أشياء، وأسماء أفعال، واسم علم.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage" style="flex-direction:column;align-items:stretch;gap:22px">
+            <table class="cmp">
+              <thead><tr><th style="width:26%">الموضع</th><th style="width:24%">اليوم</th><th style="width:24%">المقترح</th><th>لماذا</th></tr></thead>
+              <tbody>
+                <tr><td>قسم المفاتيح</td><td><span class="old">مفاتيح الحماية</span></td><td><span class="new">طبقات الحجب</span></td><td><span class="why">يصف المحتوى لا شكل الواجهة — ويوازي بقية المساحات</span></td></tr>
+                <tr><td>قسم الأرقام</td><td><span class="old">حصيلتك</span></td><td><span class="new">تقدّمك</span></td><td><span class="why">«حصيلة» تحتمل الدَّين؛ و«تقدّم» يقابل «البصيرة»</span></td></tr>
+                <tr><td>قسم الالتزام</td><td><span class="old">تحدّي وتركيز</span></td><td><span class="new">الاتزان</span></td><td><span class="why">اسم واحد يحوي ثلاث أدوات بدل سردٍ لاثنتين منها</span></td></tr>
+                <tr><td>قسم الأدوات</td><td><span class="old">أدوات</span></td><td><span class="new">— (يُحذف)</span></td><td><span class="why">صندوق لأربعة أعمال؛ تُوزَّع على المساحات</span></td></tr>
+                <tr><td>قفل الوقت</td><td><span class="old">قفل صَوْن</span></td><td><span class="new">قفل الوقت</span></td><td><span class="why">القفل زمني لا اسمي؛ الاسم العلم يبقى للعلامة وحدها</span></td></tr>
+                <tr><td>قائمة الحجب</td><td><span class="old">التطبيقات والمواقع</span></td><td><span class="new">قائمة الحجب</span></td><td><span class="why">يوازي «الحارس» ويشمل ما استُثني (القواعد المدمجة)</span></td></tr>
+                <tr><td>الإنجازات</td><td><span class="old">الإنجازات</span></td><td><span class="new">الإنجازات</span></td><td><span class="why">يبقى — داخل «البصيرة»</span></td></tr>
+                <tr><td>اسم الميزة</td><td><span class="old">تحدّي 30 يوماً</span></td><td><span class="new">تحدّي 30 يوماً</span></td><td><span class="why">«تحدّي 30 يوم» خطأ نحوي — تصحيح فقط</span></td></tr>
+              </tbody>
+            </table>
+
+            <div class="stage" style="justify-content:center">
+              <div>
+                <div class="phone">
+                  <div class="notch"></div>
+                  <div class="screen">
+                    <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                    <div class="pbody">
+                      <div class="apptop">
+                        <div class="logo">☀</div>
+                        <div class="nm"><b>صَوْن</b><span>أهلاً، أحمد</span></div>
+                        <div class="gear">⚙</div>
+                      </div>
+                      <div class="sec-head"><div class="t">طبقات الحجب</div><div class="h">كل مفتاح يعمل من هنا مباشرة</div></div>
+                      <div class="grid2">
+                        <div class="ptog"><span class="ic">⛔</span><b>فلتر الإباحية</b><span>قوائم محلّية</span><div class="sw on"></div></div>
+                        <div class="ptog"><span class="ic">🔎</span><b>SafeSearch</b><span>إجبار البحث</span><div class="sw on"></div></div>
+                      </div>
+                      <div class="sec-head"><div class="t">تقدّمك</div><div class="h">أرقامك على جهازك، ولا تخرج منه</div></div>
+                      <div class="streak">
+                        <div class="top"><div class="ic">🏆</div><div><b>سلسلة الأيام</b><span>اليوم محميّ ✓</span></div></div>
+                        <div class="num"><b>12</b><span>يوماً</span></div>
+                        <div class="week"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+                        <div class="week"><u>س</u><u>ح</u><u>ن</u><u>ث</u><u>ر</u><u>خ</u><u>ج</u></div>
+                      </div>
+                      <div class="sec-head"><div class="t">الاتزان</div><div class="h">ثلاثون يوماً، تطبيقاً تلو الآخر</div></div>
+                      <div class="grid2">
+                        <div class="tile"><div class="ic">🏅</div><div class="tx"><b>تحدّي 30 يوماً</b><span>سجّل كل يوم محمي</span></div><div class="ar">‹</div></div>
+                        <div class="tile"><div class="ic">🎯</div><div class="tx"><b>التركيز العميق</b><span>لا يمرّ إلا المسموح</span></div><div class="ar">‹</div></div>
+                      </div>
+                      <div class="sec-head"><div class="t">العهد</div></div>
+                      <div class="grid2">
+                        <div class="tile"><div class="ic">👥</div><div class="tx"><b>المساءلة</b><span>شارك تقريرك الأسبوعي</span></div><div class="ar">‹</div></div>
+                        <div class="tile"><div class="ic">💾</div><div class="tx"><b>النسخ الاحتياطي</b><span>نسخة .sawnbak مشفّرة</span></div><div class="ar">‹</div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="caption"><b>الرئيسية</b> أربعة عناوين موحّدة النمط</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>القاعدة المقترحة</h4>
+            <p>كل اسم في التطبيق = <b style="color:var(--ink)">اسم صفة</b> + <b style="color:var(--ink)">سطر توضيح واحد</b> + لا تكرار مع مكان آخر.</p>
+            <ul>
+              <li>أسماء المساحات الأربع تعتمد نفس النمط: <b>الحارس · الاتزان · البصيرة · العهد</b>.</li>
+              <li>الاسم العلم يُستثنى ويُحصر في «صَوْن» فقط.</li>
+              <li>الأرقام دائماً لاتينية — ثابت قائم في <code>SawnNumbers</code>.</li>
+            </ul>
+            <p style="margin-top:14px">الملفّات المتأثرة: <code>values/strings.xml</code> و<code>values-ar/strings.xml</code> — نفس المفتاح، صياغة عربية سليمة في الحالتين.</p>
+            <div class="badges"><span class="badge impact">أثر متوسط</span><span class="badge effort">جهد صغير</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 7 ================= -->
+      <section class="idea" id="i7">
+        <div class="idea-head">
+          <div class="idea-num">7</div>
+          <div>
+            <h2 class="idea-title">قاعدة الرئيسية/الإعدادات — منطق لا ذوق</h2>
+            <p class="idea-sub">القاعدة موجودة اليوم في تعليقات الكود («مفاتيح الحماية على الرئيسية وحدها») لكنها غير مكتوبة كقرار قابل للتطبيق.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage" style="flex-direction:column;align-items:stretch;gap:18px">
+            <div class="matrix">
+              <div class="mx">
+                <h5>مفتاح يغيّر <b style="color:var(--primary-deep)">ما يُحجب</b></h5>
+                <p>فلتر الإباحية · SafeSearch · الإعلانات · DoH · الإشعارات · الدائم · الصارم · قفل الوقت</p>
+                <span class="dest">الرئيسية</span>
+                <ul style="margin-top:12px">
+                  <li>يُستخدم يومياً</li>
+                  <li>أثره فوري ومرئي</li>
+                  <li>لا يحتاج شرحاً — المفتاح يقول كل شيء</li>
+                </ul>
+              </div>
+              <div class="mx">
+                <h5>مفتاح يغيّر <b style="color:var(--primary-deep)">سلوك التطبيق أو الخصوصية</b></h5>
+                <p>اللغة · الملف الشخصي · الصلاحيات · إدارية الجهاز · إعادة الترحيب · مسح البيانات</p>
+                <span class="dest">الإعدادات</span>
+                <ul style="margin-top:12px">
+                  <li>يُفتح مرة كل فترة</li>
+                  <li>يحتاج شرحاً أو تحذيراً</li>
+                  <li>خطره أعلى — يستحق مكاناً هادئاً</li>
+                </ul>
+              </div>
+              <div class="mx">
+                <h5>ميزة لها <b style="color:var(--primary-deep)">جلسة أو سجل خاص</b></h5>
+                <p>التحدّي · التركيز العميق · الحارس الليلي · تمارين التنفس · المحفّزات · المساءلة · النسخ الاحتياطي</p>
+                <span class="dest">شاشة مخصّصة داخل مساحتها</span>
+                <ul style="margin-top:12px">
+                  <li>لها تاريخ وتقدّم خاص</li>
+                  <li>تستحق شاشة كاملة لا صفاً في قائمة</li>
+                </ul>
+              </div>
+              <div class="mx">
+                <h5>مفتاح <b style="color:var(--primary-deep)">نادر الاستخدام</b></h5>
+                <p>إدارة الجهاز · الوضع النشط · تحديث التطبيق · البصمة (قريباً)</p>
+                <span class="dest">الإعدادات</span>
+                <ul style="margin-top:12px">
+                  <li>لا يبرَّر مكانه على الرئيسية</li>
+                  <li>وصوله عبر الإعدادات يكفي</li>
+                </ul>
+              </div>
+            </div>
+            <div class="callout">
+              <b>قاعدة منع التكرار:</b> لا يظهر المفتاح نفسه في مكانين. الرئيسية تمنح السرعة، والإعدادات يمنح العمق، وشاشة الميزة تمنح السياق. الثلاثة معاً = كل مفتاح في مكان واحد فقط — مهما نمت الميزات.
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>لماذا هذه مواكب لا ترفيق</h4>
+            <p>المشكلة اليوم أن «أين يضع المطور هذه الميزة؟» تُحلّ بالعادة لا بالمعيار — ولهذا появиت أقسام مثل «أدوات».</p>
+            <p>هذه الجدول يجعل <b style="color:var(--ink)">السؤال إجرائياً</b>: صف نوع العنصر، تخرج مكانه. يُكتب في <code>docs/CONTRIBUTING.md</code> كما وُثّقت مبادئ أخرى.</p>
+            <div class="badges"><span class="badge impact">أثر متوسط</span><span class="badge effort">جهد صفر</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 8 ================= -->
+      <section class="idea" id="i8">
+        <div class="idea-head">
+          <div class="idea-num">8</div>
+          <div>
+            <h2 class="idea-title">كشف تدريجي بعد الترحيب — الخطط موجودة، فاستخدمها</h2>
+            <p class="idea-sub">`PlanRevealStep` ينتج «خطة» بالفعل؛ الفكرة أن تستولي على ترتيب الرئيسية بعده.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage">
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="sec-head"><div class="t">خطة حماية كاملة</div><div class="h">بناءً على إجاباتك</div></div>
+                    <div class="d-card" style="text-align:center;padding:20px 16px">
+                      <div style="width:64px;height:64px;border-radius:22px;margin:0 auto 12px;display:grid;
+                        place-items:center;font-size:30px;background:var(--primary-soft);border:1px solid var(--line)">🛡</div>
+                      <b style="display:block;font-size:16px;font-weight:800;margin-bottom:4px">خطة حماية كاملة</b>
+                      <span style="font-size:10.5px;color:var(--ink-soft)">5 عناصر · 3 جداول · وضع صارم</span>
+                      <div style="margin-top:14px;display:flex;flex-direction:column;gap:7px;text-align:start">
+                        <div style="display:flex;gap:8px;align-items:center;font-size:11px;font-weight:700"><span style="color:var(--success)">✓</span> فلتر الإباحية + SafeSearch</div>
+                        <div style="display:flex;gap:8px;align-items:center;font-size:11px;font-weight:700"><span style="color:var(--success)">✓</span> حجب الإعلانات وDoH</div>
+                        <div style="display:flex;gap:8px;align-items:center;font-size:11px;font-weight:700"><span style="color:var(--success)">✓</span> جدول يومي + وضع صارم</div>
+                        <div style="display:flex;gap:8px;align-items:center;font-size:11px;font-weight:700"><span style="color:var(--success)">✓</span> تحدّي 30 يوماً</div>
+                      </div>
+                      <div class="cta" style="margin-top:14px">ابدأ</div>
+                    </div>
+                    <div class="d-card" style="border-style:dashed">
+                      <div style="font-size:10px;font-weight:800;color:var(--primary-deep);margin-bottom:8px">ما ستفعله هذه الخطّة</div>
+                      <div style="font-size:11px;color:var(--ink-soft);line-height:1.75">
+                        • تُرتّب مساحتَي «الحارس» و«الاتزان» في أعلى الرئيسية<br>
+                        • تفتح ما يلزم من الصلاحيات تلقائياً بالترتيب<br>
+                        • تُنشئ جدولاً يومياً مقترحاً قابلاً للتعديل
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>الترحيب</b> الخطة تشرح نفسها</p>
+            </div>
+
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>صَوْن</b><span>أهلاً، أحمد</span></div>
+                      <div class="gear">⚙</div>
+                    </div>
+                    <div class="d-card">
+                      <div class="hero">
+                        <div class="ring"><div class="inner">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4" fill="#FDBA74" stroke="none"/></svg>
+                        </div></div>
+                        <div class="txt"><b>محميّ الآن</b><span>خطة «الحماية الكاملة» مطبَّقة</span></div>
+                      </div>
+                    </div>
+                    <div class="sec-head"><div class="t">مساحتك</div><div class="h">مرتّبة حسب خطّتك</div></div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:18px;flex:none">🛡</div>
+                      <div style="flex:1"><b style="display:block;font-size:13px;font-weight:800">الحارس</b><span style="font-size:9.5px;color:var(--ink-soft)">5 مفاتيح مفعّلة · 3 جداول</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--gold-container);color:var(--gold-deep);display:grid;place-items:center;font-size:18px;flex:none">🧘</div>
+                      <div style="flex:1"><b style="display:block;font-size:13px;font-weight:800">الاتزان</b><span style="font-size:9.5px;color:var(--ink-soft)">تحدّي 30 يوماً · جارية</span></div>
+                      <span class="chip new" style="margin-inline-start:auto">جديد</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px;opacity:.55">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:var(--success-soft);color:var(--success);display:grid;place-items:center;font-size:18px;flex:none">◔</div>
+                      <div style="flex:1"><b style="display:block;font-size:13px;font-weight:800">البصيرة</b><span style="font-size:9.5px;color:var(--ink-soft)">السجل · المحفّزات</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="display:flex;align-items:center;gap:11px;opacity:.55">
+                      <div class="ic" style="width:38px;height:38px;border-radius:13px;background:#EDE7E1;color:var(--ink);display:grid;place-items:center;font-size:18px;flex:none">◈</div>
+                      <div style="flex:1"><b style="display:block;font-size:13px;font-weight:800">العهد</b><span style="font-size:9.5px;color:var(--ink-soft)">المساءلة · نسخة احتياطية</span></div>
+                      <span style="color:var(--ink-soft);font-size:13px">‹</span>
+                    </div>
+                    <div class="d-card" style="border-style:dashed;text-align:center;padding:14px">
+                      <span style="font-size:10.5px;font-weight:700;color:var(--ink-soft)">باقي المساحات تُعرض بعد أن تطلق حمايتك الأولى</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>الرئيسية</b> مرتّبة حسب الخطة</p>
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>ما يتغيّر</h4>
+            <ul>
+              <li>الرئيسية تبدأ بمساحتَي <b>الحارس</b> و<b>الاتزان</b> لأنهما ما تُفعِّله الخطة، والباقيتان مُعتَّمتان حتى أول إنجاز.</li>
+              <li>شارة <b>«جديد»</b> على كل ميزة جديدة في الإصدار، تُخفى بعد أول فتح (علم محلي في DataStore).</li>
+              <li>ورقة «خريطة الميزات» تظهر مرة واحدة بعد أول أسبوع — لا عند كل فتح.</li>
+            </ul>
+            <p style="margin-top:14px">المبدأ: <b style="color:var(--ink)">لا تُخِفِف الترتيب، بل رتّب حسب ما ا��تفق عليه المستخدم.</b></p>
+            <div class="badges"><span class="badge impact">أثر متوسط</span><span class="badge effort">جهد متوسط</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= IDEA 9 ================= -->
+      <section class="idea" id="i9">
+        <div class="idea-head">
+          <div class="idea-num">9</div>
+          <div>
+            <h2 class="idea-title">قياس ذاتي بلا تتبّع — كيف تعرف أن إعادة التنظيم نجحت؟</h2>
+            <p class="idea-sub">التطبيق يجمع بيانات استخدام <b>لنفسه</b> عبر `UsageStatsHelper` — محلياً فقط. لا تحليلات، ولا شبكة.</p>
+          </div>
+        </div>
+        <div class="idea-body">
+          <div class="stage">
+            <div>
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen">
+                  <div class="statusbar"><span>9:41</span><span class="dots">●●● ▮</span></div>
+                  <div class="pbody">
+                    <div class="apptop">
+                      <div class="logo">☀</div>
+                      <div class="nm"><b>تشخيص ذاتي</b><span>بياناتك على جهازك</span></div>
+                    </div>
+                    <div class="d-card">
+                      <div class="row"><div class="ic">👆</div><div class="tx"><b>الوصول للميزات</b><span>مقياس النجاح الأول</span></div><span class="chip on"><i></i> يتحسّن</span></div>
+                    </div>
+                    <div class="d-card">
+                      <b style="font-size:12.5px;font-weight:800;display:block;margin-bottom:12px">الشاشات الأكثر فتحاً (30 يوماً)</b>
+                      <div class="bars">
+                        <div class="b"><span class="lbl">الرئيسية</span><span class="track2"><span class="fill" style="width:100%"></span></span><span class="val">412</span></div>
+                        <div class="b"><span class="lbl">الحارس</span><span class="track2"><span class="fill" style="width:38%"></span></span><span class="val">156</span></div>
+                        <div class="b"><span class="lbl">الاتزان</span><span class="track2"><span class="fill" style="width:24%"></span></span><span class="val">99</span></div>
+                        <div class="b"><span class="lbl">البصيرة</span><span class="track2"><span class="fill" style="width:14%"></span></span><span class="val">57</span></div>
+                        <div class="b"><span class="lbl">العهد</span><span class="track2"><span class="fill" style="width:4%"></span></span><span class="val">16</span></div>
+                      </div>
+                    </div>
+                    <div class="d-card">
+                      <b style="font-size:12.5px;font-weight:800;display:block;margin-bottom:12px">زمن الوصول إلى «قفل الوقت»</b>
+                      <div class="bars">
+                        <div class="b"><span class="lbl">قبل</span><span class="track2"><span class="fill" style="width:100%;background:linear-gradient(90deg,#C62828,#F87171)"></span></span><span class="val">9ق</span></div>
+                        <div class="b"><span class="lbl">بعد</span><span class="track2"><span class="fill" style="width:14%"></span></span><span class="val">1ق</span></div>
+                      </div>
+                      <p style="font-size:9.5px;color:var(--ink-soft);margin:10px 0 0">قياس بالتمرير حتى الوصول، لا بزمن الاستجابة.</p>
+                    </div>
+                    <div class="d-card">
+                      <b style="font-size:12.5px;font-weight:800;display:block;margin-bottom:10px">أقل ما يُستعمل</b>
+                      <div class="row" style="padding:6px 0"><div class="ic">💾</div><div class="tx"><b>النسخ الاحتياطي</b><span>فُتح مرّة واحدة</span></div></div>
+                      <div class="row" style="padding:6px 0"><div class="ic">👪</div><div class="tx"><b>وضع ولي الأمر</b><span>لم يُفتح</span></div></div>
+                    </div>
+                    <div class="alert info"><span>🔒</span><span>لا يغادر الجهاز. لا تحليلات ولا حساب ولا شبكة.</span></div>
+                  </div>
+                </div>
+              </div>
+              <p class="caption"><b>تشخيص ذاتي</b> قياس محلي بالكامل</p>
+            </div>
+          </div>
+
+          <div class="sidecard">
+            <h4>لماذا لا يكفي التخمين</h4>
+            <p>الفكرة ١ تدّعي أن الطولconstant أهم — وهذه الشاشة هي ما يثبتها أو ينفيها. بدون قياس، إعادة التنظيم تبقى انطباعاً.</p>
+            <ul>
+              <li><b>مقياس النجاح الأول</b>: زمن الوصول إلى ميزة بعينها (مثل «قفل الوقت») — من 9 أقسام إلى نقرتين.</li>
+              <li><b>مقياس orphans</b>: أي ميزة لا يفتحها أحد = إما مكانها خاطئ أو شرحها ناقص.</li>
+              <li><b>مقارنة قبل/بعد</b>: نفس الجهاز، نفس المستخدم، بعد أسبوعين.</li>
+            </ul>
+            <p style="margin-top:14px"><b style="color:var(--ink)">ملاحظة مهمة:</b> هذا يتعارض ظاهرياً مع وعد «بلا حسابات ولا تتبّع» — فلا بد أن يكون <b>مبدّلاً ومُطفأً افتراضياً</b>، ومصطلحه في التطبيق «تشخيص ذاتي» لا «تحليلات». الوعد يبقى صحيحاً: لا شيء يغادر الجهاز.</p>
+            <div class="badges"><span class="badge impact">أثر متوسط</span><span class="badge effort">جهد متوسط</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PHASING ================= -->
+      <section class="idea" id="phases">
+        <div class="idea-head">
+          <div class="idea-num">◷</div>
+          <div>
+            <h2 class="idea-title">خارطة التنفيذ</h2>
+            <p class="idea-sub">المرحلة الأولى وحدها تحلّ نصف المشاكل دون لمس معمارية التنقّل.</p>
+          </div>
+        </div>
+        <table class="cmp">
+          <thead><tr><th style="width:14%">المرحلة</th><th style="width:44%">المحتوى</th><th style="width:16%">الجهد</th><th>الأثر</th></tr></thead>
+          <tbody>
+            <tr><td><span class="new">١ — ربح سريع</span></td><td>نظام الحالة (٣) · توحيد التسميات (٦) · تجميع `FeatureCatalog` (٥)</td><td><span class="chip on" style="font-size:10px"><i></i> صغير</span></td><td>واجهة أوضح بلا تغيير معماري</td></tr>
+            <tr><td><span class="new">٢ — البنية</span></td><td>المساحات الأربع (١) · فهرس الميزات (٤) · شريط «يحتاج انتباهك» (٢)</td><td><span class="chip perm" style="font-size:10px">متوسط</span></td><td>نموّ ثابت + اكتشاف + استجابة للحالة</td></tr>
+            <tr><td><span class="new">٣ — الصقل</span></td><td>كشف تدريجي (٨) · تشخيص ذاتي (٩) · توحيد الـwidget مع أول سطر</td><td><span class="chip perm" style="font-size:10px">متوسط</span></td><td>قياس مستمر + ترحيب يتكيّف</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div class="foot">
+        <div>صَوْن 2.2.0 — مخطط داخلي لتنظيم الميزات · الأرقام مستخرجة من الكود</div>
+        <div><b>لا شبكة · لا حسابات · لا تحليلات</b></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toTop" id="toTop">↑</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  var top = document.getElementById('toTop');
+
+  function onScroll(){
+    var y = window.scrollY + 140, best = 0;
+    secs.forEach(function(s,i){ if (s.offsetTop <= y) best = i; });
+    links.forEach(function(l,i){ l.classList.toggle('on', i === best); });
+    top.classList.toggle('show', window.scrollY > 700);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  top.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+})();
+</script>
+</body>
+</html>

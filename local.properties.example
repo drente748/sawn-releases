@@ -1,0 +1,9 @@
+# Copy to local.properties and point at your Android SDK.
+# Android Studio writes this automatically on first open.
+sdk.dir=/Users/YOU/Library/Android/sdk
+
+# Optional release signing. Use the same SAWN_* names for CI environment variables.
+SAWN_STORE_FILE=sawn-release.keystore
+SAWN_STORE_PASSWORD=replace-me
+SAWN_KEY_ALIAS=replace-me
+SAWN_KEY_PASSWORD=replace-me
